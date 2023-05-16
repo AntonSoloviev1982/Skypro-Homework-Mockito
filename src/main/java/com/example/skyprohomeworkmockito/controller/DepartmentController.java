@@ -1,44 +1,45 @@
 package com.example.skyprohomeworkmockito.controller;
 
-import com.example.skyprohomework2_7.model.Employee;
-import com.example.skyprohomework2_7.service.EmployeeServiceByDepartment;
+import com.example.skyprohomeworkmockito.model.Employee;
+import com.example.skyprohomeworkmockito.service.DepartmentService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
-@RequestMapping("/employee/departments")
+@RequestMapping("/department")
 public class DepartmentController {
 
-    private final EmployeeServiceByDepartment serviceByDepartment;
+    private final DepartmentService departmentService;
 
-    public DepartmentController(EmployeeServiceByDepartment serviceByDepartment) {
-        this.serviceByDepartment = serviceByDepartment;
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
-    @GetMapping("max-salary")
-    public Employee getEmployeeWithMaxSalaryFromDepartment(@RequestParam("departmentId") int departmentId) {
-        return serviceByDepartment.getEmployeeWithMaxSalaryFromDepartment(departmentId);
+    @GetMapping("/{id}/employees")
+    public List<Employee> getEmployeesByDepartment(@PathParam("id") int departmentId) {
+        return departmentService.getEmployeesByDepartment(departmentId);
     }
 
-    @GetMapping("min-salary")
-    public Employee getEmployeeWithMinSalaryFromDepartment(@RequestParam("departmentId") int departmentId) {
-        return serviceByDepartment.getEmployeeWithMinSalaryFromDepartment(departmentId);
-    }
-
-    @GetMapping("all")
-    public List<Employee> getAllEmployeesByDepartment(@RequestParam("departmentId") int departmentId) {
-        return serviceByDepartment.getAllEmployeesByDepartment(departmentId);
-    }
-
-    @GetMapping("all-by-departments")
-    public Map<Integer, List<Employee>> getAllEmployeesByAllDepartment() {
-        return serviceByDepartment.getAllEmployeesByAllDepartment();
-    }
+//    @GetMapping("max-salary")
+//    public Employee getEmployeeWithMaxSalaryFromDepartment(@RequestParam("departmentId") int departmentId) {
+//        return departmentService.getEmployeeWithMaxSalaryFromDepartment(departmentId);
+//    }
+//
+//    @GetMapping("min-salary")
+//    public Employee getEmployeeWithMinSalaryFromDepartment(@RequestParam("departmentId") int departmentId) {
+//        return serviceByDepartment.getEmployeeWithMinSalaryFromDepartment(departmentId);
+//    }
+//
+//
+//    @GetMapping("all-by-departments")
+//    public Map<Integer, List<Employee>> getAllEmployeesByAllDepartment() {
+//        return serviceByDepartment.getAllEmployeesByAllDepartment();
+//    }
 
 
 }
