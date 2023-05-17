@@ -4,7 +4,11 @@ import com.example.skyprohomeworkmockito.exception.EmployeeAlreadyAddedException
 import com.example.skyprohomeworkmockito.exception.EmployeeNotFoundException;
 import com.example.skyprohomeworkmockito.model.Employee;
 import com.example.skyprohomeworkmockito.service.EmployeeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.skyprohomeworkmockito.constant.EmployeeConstant.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +45,17 @@ public class EmployeeServiceTest {
 
     @Test
     public void getEmployeesTest() {
+        out.addNewEmployee(EMPLOYEE_1);
+        out.addNewEmployee(EMPLOYEE_2);
+        out.addNewEmployee(EMPLOYEE_3);
+        Map<Integer, Employee> expected = out.getEmployees();
+
+        Map<Integer, Employee> actual = new HashMap<>();
+        actual.put(EMPLOYEE_1.getId(), EMPLOYEE_1);
+        actual.put(EMPLOYEE_2.getId(), EMPLOYEE_2);
+        actual.put(EMPLOYEE_3.getId(), EMPLOYEE_3);
+
+        assertEquals(expected, actual);
 
     }
 
