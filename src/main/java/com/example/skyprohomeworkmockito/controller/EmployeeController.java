@@ -1,9 +1,7 @@
 package com.example.skyprohomeworkmockito.controller;
 
-import com.example.skyprohomeworkmockito.exception.EmployeeIllegalArgumentException;
 import com.example.skyprohomeworkmockito.model.Employee;
 import com.example.skyprohomeworkmockito.service.EmployeeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,24 +24,8 @@ public class EmployeeController {
                                    @RequestParam("surname") String surname,
                                    @RequestParam("salary") int salary,
                                    @RequestParam("department") int department) {
-        if(StringUtils.isAlpha(name) && StringUtils.isAlpha(patronymic) && StringUtils.isAlpha(surname)) {
-            String regEx = "[A-ZА-Я]\\w*";
-            if (!name.matches(regEx)) {
-                name = StringUtils.replaceChars(name, name.charAt(0)
-                        , Character.toUpperCase(name.charAt(0)));
-            }
-            if (!patronymic.matches(regEx)) {
-                patronymic = StringUtils.replaceChars(patronymic, patronymic.charAt(0)
-                        , Character.toUpperCase(patronymic.charAt(0)));
-            }
-            if (!surname.matches(regEx)) {
-                surname = StringUtils.replaceChars(surname, surname.charAt(0)
-                        , Character.toUpperCase(surname.charAt(0)));
-            }
-            return employeeService.addNewEmployee(name, patronymic, surname, salary, department);
-        } else {
-            throw new EmployeeIllegalArgumentException();
-        }
+        Employee employee = new Employee(name, patronymic, surname, salary, department);
+        return employeeService.addNewEmployee(employee);
     }
 
     @GetMapping("/remove")
@@ -52,7 +34,8 @@ public class EmployeeController {
                                    @RequestParam("surname") String surname,
                                    @RequestParam("salary") int salary,
                                    @RequestParam("department") int department) {
-        return employeeService.removeEmployee(name, patronymic, surname, salary, department);
+        Employee employee = new Employee(name, patronymic, surname, salary, department);
+        return employeeService.removeEmployee(employee);
     }
 
     @GetMapping("/find")
@@ -61,11 +44,12 @@ public class EmployeeController {
                                  @RequestParam("surname") String surname,
                                  @RequestParam("salary") int salary,
                                  @RequestParam("department") int department) {
-        return employeeService.findEmployee(name, patronymic, surname, salary, department);
+        Employee employee = new Employee(name, patronymic, surname, salary, department);
+        return employeeService.findEmployee(employee);
     }
 
     @GetMapping("/getAll")
-    public Map<String, Employee> getAllEmployees() {
+    public Map<Integer, Employee> getAllEmployees() {
         return employeeService.getEmployees();
     }
 

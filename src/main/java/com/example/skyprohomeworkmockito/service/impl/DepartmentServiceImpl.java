@@ -20,33 +20,33 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Employee> getEmployeesByDepartment(int departmentId) {
+    public List<Employee> getEmployeesByDepartment(int id) {
         return employeeService.getEmployees().values().stream()
-                .filter(e -> e.getDepartment() == departmentId)
+                .filter(e -> e.getDepartment() == id)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public int getSumSalaryByDepartment(int departmentId) {
+    public int getSumSalaryByDepartment(int id) {
         return employeeService.getEmployees().values().stream()
-                .filter(e -> e.getDepartment() == departmentId)
+                .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .sum();
     }
 
     @Override
-    public int getMaxSalaryByDepartment(int departmentId) {
+    public int getMaxSalaryByDepartment(int id) {
         return employeeService.getEmployees().values().stream()
-                .filter(e -> e.getDepartment() == departmentId)
+                .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .max()
                 .getAsInt();
     }
 
     @Override
-    public int getMinSalaryByDepartment(int departmentId) {
+    public int getMinSalaryByDepartment(int id) {
         return employeeService.getEmployees().values().stream()
-                .filter(e -> e.getDepartment() == departmentId)
+                .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .min()
                 .getAsInt();

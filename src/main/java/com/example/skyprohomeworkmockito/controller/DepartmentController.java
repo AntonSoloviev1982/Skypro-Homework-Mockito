@@ -33,14 +33,14 @@ public class DepartmentController {
     }
 
     @GetMapping("{id}/salary/max")
-    public int getMaxSalaryByDepartment(@PathParam("id") int departmentId) {
-        return departmentService.getMaxSalaryByDepartment(departmentId);
+    public int getMaxSalaryByDepartment(@PathVariable int id) {
+        return departmentService.getMaxSalaryByDepartment(id);
     }
 
 
     @GetMapping("{id}/salary/min")
-    public int getMinSalaryByDepartment(@PathParam("id") int departmentId) {
-        return departmentService.getMinSalaryByDepartment(departmentId);
+    public int getMinSalaryByDepartment(@PathVariable int id) {
+        return departmentService.getMinSalaryByDepartment(id);
     }
 
     @GetMapping("employees")
