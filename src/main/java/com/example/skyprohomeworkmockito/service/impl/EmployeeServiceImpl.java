@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee removeEmployee(Employee employee) {
-        if (!employees.containsKey(employee.getId())) {
+        if (employees.containsKey(employee.getId())) {
             employees.remove(employee.getId());
         } else {
             throw new EmployeeNotFoundException("EmployeeNotFound");
