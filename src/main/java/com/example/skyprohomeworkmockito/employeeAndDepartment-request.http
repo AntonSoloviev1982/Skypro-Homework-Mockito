@@ -1,0 +1,40 @@
+
+
+###
+GET http://localhost:8080/employee/add?name=Сергей&patronymic=Сергеевич&surname=Сергеев&salary=25000&department=1
+
+
+###
+GET http://localhost:8080/employee/add?name=Иван&patronymic=Иванович&surname=Иванов&salary=32000&department=1
+
+
+###
+GET http://localhost:8080/employee/add?name=Петр&patronymic=Петрович&surname=Петров&salary=18000&department=2
+
+
+###
+GET http://localhost:8080/employee/remove?name=Николай&patronymic=Николаевич&surname=Николаев&salary=21000&department=2
+
+
+###
+GET http://localhost:8080/employee/find?name=Петр&patronymic=Петрович&surname=Петров&salary=18000&department=2
+
+
+###
+GET http://localhost:8080/employee/getAll
+
+###
+GET http://localhost:8080/department/0/employees
+
+
+###
+GET http://localhost:8080/department/1/salary/sum
+
+###
+GET http://localhost:8080/department/1/salary/max
+
+###
+GET http://localhost:8080/department/5/salary/min
+
+###
+GET http://localhost:8080/department/employees
