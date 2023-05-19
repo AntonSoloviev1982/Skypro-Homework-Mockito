@@ -2,11 +2,15 @@ package com.example.skyprohomeworkmockito.service.impl;
 
 import com.example.skyprohomeworkmockito.exception.DepartmentIllegalArgumentException;
 import com.example.skyprohomeworkmockito.exception.DepartmentNotFoundException;
+import com.example.skyprohomeworkmockito.exception.EmployeesMapIsEmptyException;
 import com.example.skyprohomeworkmockito.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.NoSuchElementException;
+
 import static com.example.skyprohomeworkmockito.constant.DepartmentConstant.*;
 import static com.example.skyprohomeworkmockito.constant.EmployeeConstant.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +31,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void getEmployeesByDepartment() {
+    public void getEmployeesByDepartmentTest() {
         when(serviceMock.getEmployees()).thenReturn(EMPLOYEE_MAP);
         assertEquals(EMPLOYEES_BY_DEPARTMENT, out.getEmployeesByDepartment(ID_DEPARTMENT));
 
@@ -38,7 +42,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void getSumSalaryByDepartment() {
+    public void getSumSalaryByDepartmentTest() {
         when(serviceMock.getEmployees()).thenReturn(EMPLOYEE_MAP);
         assertEquals(SUM_SALARY_BY_DEPARTMENT, out.getSumSalaryByDepartment(ID_DEPARTMENT));
 
@@ -49,30 +53,36 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void getMaxSalaryByDepartment() {
+    public void getMaxSalaryByDepartmentTest() {
         when(serviceMock.getEmployees()).thenReturn(EMPLOYEE_MAP);
         assertEquals(MAX_SALARY_BY_DEPARTMENT, out.getMaxSalaryByDepartment(ID_DEPARTMENT));
 
         assertThrows(DepartmentIllegalArgumentException.class,
                 () -> out.getMaxSalaryByDepartment(ILLEGAL_ARGUMENT_ID_DEPARTMENT));
-        assertThrows(DepartmentNotFoundException.class,
+        assertThrows(NoSuchElementException.class,
                 () -> out.getMaxSalaryByDepartment(NO_SUCH_ID_DEPARTMENT));
     }
 
     @Test
-    public void getMinSalaryByDepartment() {
+    public void getMinSalaryByDepartmentTest() {
         when(serviceMock.getEmployees()).thenReturn(EMPLOYEE_MAP);
         assertEquals(MIN_SALARY_BY_DEPARTMENT, out.getMinSalaryByDepartment(ID_DEPARTMENT));
 
         assertThrows(DepartmentIllegalArgumentException.class,
                 () -> out.getMinSalaryByDepartment(ILLEGAL_ARGUMENT_ID_DEPARTMENT));
-        assertThrows(DepartmentNotFoundException.class,
+        assertThrows(NoSuchElementException.class,
                 () -> out.getMinSalaryByDepartment(NO_SUCH_ID_DEPARTMENT));
     }
 
     @Test
-    public void getEmployeesGroupByDepartments() {
+    public void getEmployeesGroupByDepartmentsTest() {
         when(serviceMock.getEmployees()).thenReturn(EMPLOYEE_MAP);
         assertEquals(EMPLOYEES_BY_DEPARTMENTS_MAP, out.getEmployeesGroupByDepartments());
+    }
+
+    @Test
+    public void returnEmployeesMapIsEmptyExceptionWhenEmployeeMapIsEmptyTest() {
+        when(serviceMock.getEmployees()).thenReturn(EMPTY_MAP);
+        assertThrows(EmployeesMapIsEmptyException.class, () -> out.getEmployeesGroupByDepartments());
     }
 }

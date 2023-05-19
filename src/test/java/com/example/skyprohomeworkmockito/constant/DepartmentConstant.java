@@ -26,4 +26,9 @@ public class DepartmentConstant {
             1, List.of(EMPLOYEE_1, EMPLOYEE_2),
             2, List.of(EMPLOYEE_3)
     );
+
+
+    public static final Map<Integer, Employee> EMPTY_MAP = Map.of();
+
+
 }

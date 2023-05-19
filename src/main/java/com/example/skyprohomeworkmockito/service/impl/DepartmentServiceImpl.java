@@ -2,6 +2,7 @@ package com.example.skyprohomeworkmockito.service.impl;
 
 import com.example.skyprohomeworkmockito.exception.DepartmentIllegalArgumentException;
 import com.example.skyprohomeworkmockito.exception.DepartmentNotFoundException;
+import com.example.skyprohomeworkmockito.exception.EmployeesMapIsEmptyException;
 import com.example.skyprohomeworkmockito.model.Employee;
 import com.example.skyprohomeworkmockito.service.DepartmentService;
 import com.example.skyprohomeworkmockito.service.EmployeeService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -61,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .max()
                 .getAsInt();
         if (maxSalaryByDepartment == 0) {
-            throw new DepartmentNotFoundException();
+            throw new NoSuchElementException();
         }
         return maxSalaryByDepartment;
     }
@@ -77,14 +79,18 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .min()
                 .getAsInt();
         if (minSalaryByDepartment == 0) {
-            throw new DepartmentNotFoundException();
+            throw new NoSuchElementException();
         }
         return minSalaryByDepartment;
     }
 
     @Override
     public Map<Integer, List<Employee>> getEmployeesGroupByDepartments() {
-        return employeeService.getEmployees().values().stream()
+        Map<Integer, List<Employee>> employeesGroupByDepartments = employeeService.getEmployees().values().stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment()));
+        if (employeesGroupByDepartments.isEmpty()) {
+            throw  new EmployeesMapIsEmptyException();
+        }
+        return employeesGroupByDepartments;
     }
 }

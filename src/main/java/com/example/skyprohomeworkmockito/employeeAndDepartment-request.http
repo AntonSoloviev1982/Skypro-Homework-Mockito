@@ -34,7 +34,7 @@ GET http://localhost:8080/department/1/salary/sum
 GET http://localhost:8080/department/1/salary/max
 
 ###
-GET http://localhost:8080/department/1/salary/min
+GET http://localhost:8080/department/5/salary/min
 
 ###
 GET http://localhost:8080/department/employees
