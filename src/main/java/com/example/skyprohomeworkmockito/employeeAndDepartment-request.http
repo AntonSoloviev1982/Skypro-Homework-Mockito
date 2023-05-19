@@ -24,7 +24,7 @@ GET http://localhost:8080/employee/find?name=Петр&patronymic=Петрови�
 GET http://localhost:8080/employee/getAll
 
 ###
-GET http://localhost:8080/department/1/employees
+GET http://localhost:8080/department/0/employees
 
 
 ###

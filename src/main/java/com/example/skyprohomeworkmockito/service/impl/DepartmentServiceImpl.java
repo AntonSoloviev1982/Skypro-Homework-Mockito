@@ -1,5 +1,7 @@
 package com.example.skyprohomeworkmockito.service.impl;
 
+import com.example.skyprohomeworkmockito.exception.DepartmentIllegalArgumentException;
+import com.example.skyprohomeworkmockito.exception.DepartmentNotFoundException;
 import com.example.skyprohomeworkmockito.model.Employee;
 import com.example.skyprohomeworkmockito.service.DepartmentService;
 import com.example.skyprohomeworkmockito.service.EmployeeService;
@@ -21,35 +23,63 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Employee> getEmployeesByDepartment(int id) {
-        return employeeService.getEmployees().values().stream()
+        if (id == 0) {
+            throw new DepartmentIllegalArgumentException();
+        }
+        List<Employee> employeesByDepartment = employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == id)
                 .collect(Collectors.toList());
+        if (employeesByDepartment.isEmpty()) {
+            throw new DepartmentNotFoundException();
+        }
+        return employeesByDepartment;
     }
 
     @Override
     public int getSumSalaryByDepartment(int id) {
-        return employeeService.getEmployees().values().stream()
+        if (id == 0) {
+            throw new DepartmentIllegalArgumentException();
+        }
+        int sumSalaryByDepartment = employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .sum();
+        if (sumSalaryByDepartment == 0) {
+            throw new DepartmentNotFoundException();
+        }
+        return sumSalaryByDepartment;
     }
 
     @Override
     public int getMaxSalaryByDepartment(int id) {
-        return employeeService.getEmployees().values().stream()
+        if (id == 0) {
+            throw new DepartmentIllegalArgumentException();
+        }
+        int maxSalaryByDepartment = employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .max()
                 .getAsInt();
+        if (maxSalaryByDepartment == 0) {
+            throw new DepartmentNotFoundException();
+        }
+        return maxSalaryByDepartment;
     }
 
     @Override
     public int getMinSalaryByDepartment(int id) {
-        return employeeService.getEmployees().values().stream()
+        if (id == 0) {
+            throw new DepartmentIllegalArgumentException();
+        }
+        int minSalaryByDepartment = employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == id)
                 .mapToInt(e -> e.getSalary())
                 .min()
                 .getAsInt();
+        if (minSalaryByDepartment == 0) {
+            throw new DepartmentNotFoundException();
+        }
+        return minSalaryByDepartment;
     }
 
     @Override
